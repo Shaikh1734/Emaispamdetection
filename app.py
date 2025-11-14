@@ -2,9 +2,10 @@
 import streamlit as st
 import joblib
 
-# Load vectorizer and model
 vectorizer = joblib.load('vectorizer.joblib')
 model = joblib.load('spam_classifier_model.joblib')
+
+label_map = {0: "Ham", 1: "Spam"}
 
 st.title("Email Spam Detector")
 st.write("Paste your email text below:")
@@ -16,9 +17,10 @@ if st.button("Predict"):
         X_input = vectorizer.transform([user_input])
         prediction = model.predict(X_input)
         prob = model.predict_proba(X_input)[0].max()
-        # Extract string value from prediction (it's an array)
-        st.success(f"Prediction: {str(prediction[0]).upper()}")
+        pred_label = label_map.get(prediction[0], str(prediction[0]))
+        st.success(f"Prediction: {pred_label}")
         st.info(f"Confidence: {prob:.2f}")
     else:
         st.warning("Please enter some text.")
+
 
