@@ -14,9 +14,10 @@ user_input = st.text_area("Email Text:", height=150)
 if st.button("Predict"):
     if user_input:
         X_input = vectorizer.transform([user_input])
-        prediction = model.predict(X_input)[0]
+        prediction = model.predict(X_input)
         prob = model.predict_proba(X_input)[0].max()
-        st.success(f"Prediction: {prediction.upper()}")
+        # Extract string value from prediction (it's an array)
+        st.success(f"Prediction: {str(prediction[0]).upper()}")
         st.info(f"Confidence: {prob:.2f}")
     else:
         st.warning("Please enter some text.")
