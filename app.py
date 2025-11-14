@@ -3,8 +3,8 @@ import streamlit as st
 import joblib
 
 # Load vectorizer and model
-vectorizer = joblib.load('vectorizer.pkl')
-model = joblib.load('model_nb.pkl')
+vectorizer = joblib.load('vectorizer.joblib')
+model = joblib.load('spam_classifier_model.joblib')
 
 st.title("Email Spam Detector")
 st.write("Paste your email text below:")
@@ -20,3 +20,4 @@ if st.button("Predict"):
         st.info(f"Confidence: {prob:.2f}")
     else:
         st.warning("Please enter some text.")
+
